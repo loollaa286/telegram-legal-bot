@@ -18,11 +18,12 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     user_question = update.message.text
+    session_id = str(update.message.chat.id)  
 
     try:
         response = requests.post(
             API_URL,
-            json={"query": user_question},
+            json={"query": user_question, "session_id": session_id},
             timeout=60
         )
         if response.status_code == 200:
